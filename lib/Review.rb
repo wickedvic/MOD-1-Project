@@ -1,6 +1,6 @@
 class Review < ActiveRecord::Base
-    belongs_to :user
-    belongs_to :book
+    belongs_to :users
+    belongs_to :books
 end
 
 
