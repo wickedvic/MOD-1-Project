@@ -5,7 +5,7 @@ class CLI
 
     def start
         welcome
-        CLI.menu
+        self.menu
     end
     
     
@@ -18,7 +18,7 @@ class CLI
         puts "Bookworm"
     end
    
-    def self.menu
+    def menu
         prompt = TTY::Prompt.new
         sleep(1)
         display_menu = prompt.select ("Welcome to bookworm ") do |menu|
@@ -28,16 +28,16 @@ class CLI
         end
         if display_menu == "Returning bookworm"
             system("clear")
-            CLI.login
+            self.login
         elsif display_menu == "First book"
             system("clear")
-            CLI.create_account
+            self.create_account
         elsif display_menu == "Exit"
             exit!
         end
     end
 
-    def self.create_account
+    def create_account
         prompt = TTY::Prompt.new
         username = prompt.ask("What is the users name ?")
         password = prompt.mask("Please enter a password")
@@ -47,19 +47,19 @@ class CLI
         sleep(1)
         @user = User.all.find_by(username: username.downcase! , password: password)
         @user
-        CLI.user_menu 
+        user_menu 
     end
     
     
-    def self.login
+    def login
         prompt = TTY::Prompt.new
         username = prompt.ask("What is your user name?")
         password = prompt.mask("password")
         
         if User.find_by(username: username, password: password)
-            @user = user.find_by(username: username, password: password)
+            @user = User.find_by(username: username, password: password)
             @user
-         CLI.user_menu
+            user_menu
         elsif
             system("clear")
             wrong_password = prompt.select("Username or Password not found.") do |menu|
@@ -70,25 +70,24 @@ class CLI
          end 
          if wrong_password == "Log In"
              system("clear")
-             CLI.login
+             login
          elsif wrong_password == "Create an Account"
              system("clear")
-             CLI.create_account
+             create_account
          end
+    end
 
-
-         def self.exit
-            prompt = TTY::Prompt.new
-            @user = nil
-            sleep(1.0)
-            puts "Thank you ."
-            prompt.keypress("\nPress q to return to main menu.", keys: [:"q", :return])
-            CLI.menu
-        end
+    def exit
+        prompt = TTY::Prompt.new
+        @user = nil
+        sleep(1.0)
+        puts "Thank you ."
+        prompt.keypress("\nPress q to return to main menu.", keys: [:"q", :return])
+        self.menu
     end
 
      # menu after log in
-     def self.user_menu
+     def user_menu
         
         prompt = TTY::Prompt.new
         puts "Welcome back !!!"
@@ -111,7 +110,7 @@ class CLI
         # else
         
         if select == 'View Reviews'
-        puts "here are your reviews"
+         puts "here are your reviews"
             view_my_reviews
         # elsif select == "Exit"
         #     system("clear")
@@ -120,13 +119,13 @@ class CLI
     end
         
     def view_my_reviews
-        binding.pry
         system("clear")
-        
+        #binding.pry
         puts "My Reviews"
         sleep(0.5)
-        rev = @user.reviews.reload
-    
+        #rev = @user.reviews.reload
+        rev=Review.where(user_id: @user.id)
+        puts rev
         if rev.empty?
             puts "You don't have any reviews saved yet!"
             puts "Choose a different option"
