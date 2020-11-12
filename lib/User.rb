@@ -6,5 +6,5 @@ class User < ActiveRecord::Base
         #Review.create(user_id: self.id, review_id: review.id, b: book.title)
     #end
     #binding.pry
-
+    
 end

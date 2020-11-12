@@ -99,7 +99,7 @@ class CLI
             menu.choice 'Delete review'
             menu.choice 'View Reviews'
             menu.choice 'Exit'
-            
+        end
         
         #  if select == "Wrtie a review"
         #     add_review
@@ -109,21 +109,39 @@ class CLI
         #     puts "will delete the review "
         #     delete_review
         # else
+        
         if select == 'View Reviews'
         puts "here are your reviews"
             view_my_reviews
         # elsif select == "Exit"
         #     system("clear")
         #     exit!
-            
-         end
+        end
     end
-end
-
-  
-
-
+        
+    def view_my_reviews
+        binding.pry
+        system("clear")
+        
+        puts "My Reviews"
+        sleep(0.5)
+        rev = @user.reviews.reload
     
-
+        if rev.empty?
+            puts "You don't have any reviews saved yet!"
+            puts "Choose a different option"
+            self.user_menu
+        else
+            puts "Here are your reviews:"
+            i = 1
+            rev.each do |rev|
+                puts "#{i}. #{rev.name}"
+               i += 1
+                sleep(1.0)
+            end
+            puts "Returning to main menu..."
+            self.user_menu
+        end
+    end
 end #end of class
 
