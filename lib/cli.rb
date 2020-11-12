@@ -26,7 +26,7 @@ class CLI
             menu.choice "First book"
             menu.choice "Exit"
         end
-        if display_menu == "Returning bookwormer"
+        if display_menu == "Returning bookworm"
             system("clear")
             CLI.login
         elsif display_menu == "First book"
@@ -41,6 +41,7 @@ class CLI
         prompt = TTY::Prompt.new
         username = prompt.ask("What is the users name ?")
         password = prompt.mask("Please enter a password")
+        
         guest = User.create(username: username, password: password)
         puts "Welcome to the bookworm club!"
         sleep(1)
@@ -54,6 +55,7 @@ class CLI
         prompt = TTY::Prompt.new
         username = prompt.ask("What is your user name?")
         password = prompt.mask("password")
+        
         if User.find_by(username: username, password: password)
             @user = user.find_by(username: username, password: password)
             @user
@@ -87,14 +89,17 @@ class CLI
 
      # menu after log in
      def self.user_menu
+        
         prompt = TTY::Prompt.new
         puts "Welcome back !!!"
-        select = prompt.select("What would you like to do?",active_color: :yellow) do |menu|
+       
+        select = prompt.select("What would you like to do?") do |menu|
             menu.choice 'Wrtie a review' 
             menu.choice 'Update a review' 
             menu.choice 'Delete review'
             menu.choice 'View Reviews'
             menu.choice 'Exit'
+            
         
         #  if select == "Wrtie a review"
         #     add_review
