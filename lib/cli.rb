@@ -93,21 +93,29 @@ class CLI
         puts "Welcome back !!!"
        
         select = prompt.select("What would you like to do?") do |menu|
-            menu.choice 'Wrtie a review' 
+            menu.choice 'Write a review' 
             menu.choice 'Update a review' 
             menu.choice 'Delete review'
             menu.choice 'View Reviews'
             menu.choice 'Exit'
         end
         
-        #  if select == "Wrtie a review"
-        #     add_review
-        # elsif select == 'Update a review'
-        #     update_review
+         if select == "Write a review"
+            book = Book.first #update this later
+            user = User.first
+            review_body = "Amazing book to read"
+            Review.new.add_review(book, user, review_body)
+        elsif select == 'Update a review'
+            book = Book.first
+            user = User.first
+            new_review_body = "I changed my mind"
+            Review.new.update_review(book, user, new_review_body)
+            
         #  elsif   select  == 'Delete a review'
         #     puts "will delete the review "
         #     delete_review
         # else
+        end
         
         if select == 'View Reviews'
          puts "here are your reviews"
@@ -124,8 +132,8 @@ class CLI
         puts "My Reviews"
         sleep(0.5)
         #rev = @user.reviews.reload
-        rev=Review.where(user_id: @user.id)
-        puts rev
+        rev=Review.where(user_id: @user)
+       
         if rev.empty?
             puts "You don't have any reviews saved yet!"
             puts "Choose a different option"
