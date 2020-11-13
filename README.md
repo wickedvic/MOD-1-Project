@@ -3,7 +3,7 @@ BOOKWORM CLI APPLICATION
 
 -INITIAL SETUP
 
-Open the directory in terminal and run 'install bundle'
+Open the directory in terminal and run 'bundle install'
 
 Enter command 'ruby bin/run.rb'
 
