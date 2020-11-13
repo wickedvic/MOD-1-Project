@@ -5,7 +5,7 @@ class Review < ActiveRecord::Base
     
 
     def update_review(book, user, new_review_body)
-        binding.pry
+        
         review_to_update = Review.find_by(book_id: book.id, user_id: user.id)
         review_to_update.update(review: new_review_body)
         puts "Review updated"
@@ -18,8 +18,8 @@ class Review < ActiveRecord::Base
         puts "Review created"
     end
 
-    #   def delete_review(review)
-    #     review_delete = Review.where(review_id: self.id, user_id: user.id).first.id
-    #     Review.destroy(review_delete)
-    #   end
+    def delete_review(review)
+        Review.destroy(review)
+    end
+
 end
