@@ -138,24 +138,24 @@ class CLI
             prompt = TTY::Prompt.new
             review_body= prompt.ask("write a review for this book")
            Review.new.add_review(@current_book, @current_user, review_body)
-        
+            self.user_menu
         elsif select == 'Update a review'
             prompt = TTY::Prompt.new
             new_review_body= prompt.ask("update your review")    
             Review.new.update_review(@current_book, @current_user, new_review_body)
-           
+           self.user_menu
          
         elsif   select  == 'Delete review'
            if @current_review.present? 
                 puts "will delete the review "
-                delete_review(@current_review)
-                
+                delete_review(@current_review.id)
+                self.user_menu
             else
                 puts "Select a review to delete"
                 view_reviews #selects the review for deletion
-                binding.pry
-                delete_review(@current_review)
                 
+                delete_review(@current_review.id)
+                self.user_menu
             end
         end
         
@@ -167,7 +167,9 @@ class CLI
             exit!
         end
     end
-        
+        def delete_review(review)
+            Review.destroy(review)
+        end
     # def view_my_reviews
     #     system("clear")
     #     #binding.pry

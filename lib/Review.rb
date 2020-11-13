@@ -18,8 +18,6 @@ class Review < ActiveRecord::Base
         puts "Review created"
     end
 
-    def delete_review(review)
-        Review.destroy(review)
-    end
+    
 
 end
